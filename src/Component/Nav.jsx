@@ -10,9 +10,9 @@ import {
   styled,
   Toolbar,
   Typography,
-} from "@mui/material";
-import React, { useState } from "react";
 
+} from "@mui/material";
+import { useState } from "react";
 const StyledToolbar = styled(Toolbar)({
   display: "flex",
   justifyContent: "space-between",
@@ -47,7 +47,7 @@ const Navbar = () => {
   return (
     <AppBar position="sticky">
       <StyledToolbar>
-        <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
+        <Typography  variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           LAMA DEV
         </Typography>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
