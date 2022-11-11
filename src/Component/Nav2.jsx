@@ -29,6 +29,7 @@ import { Mail,DragHandle,
 
   import { useState } from "react";
   import * as React from 'react';
+import { color } from "@chakra-ui/react";
 
 
   const StyledToolbar = styled(Toolbar)({
@@ -39,8 +40,18 @@ import { Mail,DragHandle,
     //     justifyContent: "center",
     //   },
   });
+
+  const LinkPage = styled(Link)({
+    textDecoration:'none',
+    color:'text.primary',
+    
+    
+   });
   const TabPage = styled(Tab)({
-   fontWeight:'bold'
+   fontWeight:'bolder',
+   fontSize:'16px',
+   color:'#FFFFFF',
+   
   });
   const Search = styled("div")(({ theme }) => ({
     backgroundColor: "white",
@@ -93,6 +104,7 @@ import { Mail,DragHandle,
             >
                 <Box sx={{ width:250,textAlign:'center' }}>
                 <List>
+                  <LinkPage to="/">
           <ListItem disablePadding>
             <ListItemButton component="a" >
               <ListItemIcon>
@@ -100,7 +112,7 @@ import { Mail,DragHandle,
               </ListItemIcon>
               <ListItemText primary="Homepage" />
             </ListItemButton>
-          </ListItem>
+          </ListItem></LinkPage>
           <ListItem disablePadding>
             <ListItemButton component="a" >
               <ListItemIcon>
@@ -187,9 +199,16 @@ import { Mail,DragHandle,
           <Tabs
           
           value={value} onChange={handleChange} centered>
-  <TabPage label="Home" />
-  <TabPage label="About" />
-  <TabPage label="More" />
+<LinkPage to="/"><TabPage label="Home" /></LinkPage>
+ 
+ <LinkPage  to="/About" ><TabPage label="About" /></LinkPage>
+
+{/* <TabPage component="a" to="/" label="Home"><Link  to="/">Home</Link></TabPage>
+<TabPage component="a" to="About" label="About"><Link to="About">About</Link></TabPage> */}
+
+
+
+
 </Tabs>
     </Box>
           
