@@ -2,7 +2,7 @@ import { Mail,DragHandle,
      Notifications, Pets, 
      ModeNight,Home,Article,
      AccountBox,Settings,Group,
-     Person,Storefront
+     Person,Storefront,Logout
     } from "@mui/icons-material";
   import {
     AppBar,
@@ -17,12 +17,15 @@ import { Mail,DragHandle,
     Typography,Switch,
   Drawer,
   Button,
-  List,
+  List,Tab,Tabs,
   ListItem,
   ListItemButton,
   Divider,ListItemIcon,ListItemText
   } from "@mui/material"
 
+
+
+  import { Link } from "react-router-dom";
 
   import { useState } from "react";
   import * as React from 'react';
@@ -30,13 +33,15 @@ import { Mail,DragHandle,
 
   const StyledToolbar = styled(Toolbar)({
     display: "flex",
-    
+    backgroundColor:"skyblue",
     justifyContent: "space-between",
     // [Toolbar.breakpoints.up("sm")]: {
     //     justifyContent: "center",
     //   },
   });
-  
+  const TabPage = styled(Tab)({
+   fontWeight:'bold'
+  });
   const Search = styled("div")(({ theme }) => ({
     backgroundColor: "white",
     padding: "0 12px",
@@ -52,7 +57,7 @@ import { Mail,DragHandle,
       display: "flex",
     },
   }));
-  
+
   const UserBox = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -68,7 +73,11 @@ import { Mail,DragHandle,
         // setIsOpen((prevState) => !prevState)
         setIsOpen(true)
     }
+    const [value, setValue] = useState(2);
 
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
     return (
       <AppBar position="sticky">
 
@@ -135,9 +144,18 @@ import { Mail,DragHandle,
           <ListItem disablePadding>
             <ListItemButton component="a" >
               <ListItemIcon>
-                 <AccountBox /> *
+                 <AccountBox /> 
               </ListItemIcon>
               <ListItemText primary="Profile" />
+            </ListItemButton>
+          </ListItem>
+          <Divider/>
+          <ListItem disablePadding>
+            <ListItemButton component="a" >
+              <ListItemIcon>
+                 <Logout/>
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
@@ -150,6 +168,7 @@ import { Mail,DragHandle,
           </ListItem>
         </List></Box>
             </Drawer>
+
         <Box sx={{justifyContent:{xs:'center',sm: "left",lg:'left'},
     alignItems:{xs:"center"}
     }}>
@@ -164,7 +183,15 @@ import { Mail,DragHandle,
           {/* <Search>
             <InputBase placeholder="search..." />
           </Search> */}
+          <Box sx={{ fontWeight:'20px', display:{xs:'none',lg:'block',sm:"block"} }}>
+          <Tabs
           
+          value={value} onChange={handleChange} centered>
+  <TabPage label="Home" />
+  <TabPage label="About" />
+  <TabPage label="More" />
+</Tabs>
+    </Box>
           
           <Icons>
             
