@@ -226,11 +226,11 @@ onChange={(e) => {
       spacing={2}
       sx={{ maxWidth: 400,borderRadius:"20px", }}
       >  
-       <button onClick={() => {
+       <Button onClick={() => {
 
 deletePost(eachPost?.id)
 
-}}>Delete</button>
+}}>Delete</Button>
   <Card sx={{ maxWidth: 400, }}>
  
     <CardContent>
