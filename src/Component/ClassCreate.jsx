@@ -167,7 +167,7 @@ console.log(              classTimimg ,
         onChange={(e) => {
           setclassTimimg(e.target.value)
         }}
-       type='time' id="filled-basic" label=" Class timings" variant="filled" />
+       type='text' id="filled-basic" label=" Class timings" variant="filled" />
       
       <TextField
 onChange={(e) => {
@@ -206,9 +206,14 @@ onChange={(e) => {
         </DialogActions>
       </Dialog>
   
+
+      {
+       CreatedClass.map((eachPost, i) => (
+
+          
       <Stack 
       m={10}
-     
+      key={i}
       divider={<Divider orientation="vertical" flexItem />}
       spacing={2}
       sx={{ maxWidth: 1000 }}
@@ -217,11 +222,11 @@ onChange={(e) => {
     
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
-<span>Sir Inzimam Malik</span> <span>(9 to 11)</span>
+<span>{eachPost.teacherName}</span> <span>({eachPost.classTimimg})</span>
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        Lizards are a widespread group of squamate reptiles, with over 6,000
-        species, ranging across all continents except Antarctica
+        <span>{eachPost.sectionName}</span><span>{eachPost.schduleOfClass}</span><br /><br />
+        <span>{eachPost.courseName}</span><span>{eachPost.batchNumber}</span><br />
       </Typography>
     </CardContent>
     <CardActions>
@@ -231,7 +236,7 @@ onChange={(e) => {
   </Card> 
 
 </Stack>
-    
+))}
   </div>
   )
 }
