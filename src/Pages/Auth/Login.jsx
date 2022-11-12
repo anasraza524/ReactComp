@@ -8,6 +8,7 @@ import { getAuth,
   ,onAuthStateChanged
 } from "firebase/auth";
 import {   } from "firebase/auth";
+import { CleaningServices } from '@mui/icons-material';
 function Login (){
 
  // const [email, setEmail] = useState('')
@@ -98,7 +99,13 @@ function Login (){
 
        <hr/>
    <div className="create-btn">
-     <Link to="/from" >Create New Admin</Link>
+
+    
+   
+       <Link  to="/from"  >Create New Admin</Link> :
+      
+     
+     
    </div>
  </div>
 </div>

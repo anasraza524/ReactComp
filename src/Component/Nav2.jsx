@@ -4,7 +4,9 @@ import { Mail,DragHandle,
      AccountBox,Settings,Group,
      Person,Storefront,Logout
     } from "@mui/icons-material";
-  import {
+    import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
+    import LogoutIcon from '@mui/icons-material/Logout';
+    import {
     AppBar,
     Avatar,
     Badge,
@@ -23,7 +25,7 @@ import { Mail,DragHandle,
   Divider,ListItemIcon,ListItemText
   } from "@mui/material"
 
-
+  import { getAuth,signOut } from "firebase/auth";
 
   import { Link } from "react-router-dom";
 
@@ -43,7 +45,7 @@ import { color } from "@chakra-ui/react";
 
   const LinkPage = styled(Link)({
     textDecoration:'none',
-    color:'text.primary',
+    color:'white',
     
     
    });
@@ -84,7 +86,14 @@ import { color } from "@chakra-ui/react";
         // setIsOpen((prevState) => !prevState)
         setIsOpen(true)
     }
-
+    const logout = ()=>{
+      const auth = getAuth();
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+  });
+    }
     return (
       <AppBar position="sticky">
 
@@ -106,57 +115,28 @@ import { color } from "@chakra-ui/react";
               <ListItemIcon>
                 <Home /> 
               </ListItemIcon>
-              <ListItemText primary="Homepage" />
+              <ListItemText primary="Dashnoard" />
             </ListItemButton>
           </ListItem></LinkPage>
+          <LinkPage to="/StudentDetail">
           <ListItem disablePadding>
             <ListItemButton component="a" >
               <ListItemIcon>
                <Article /> 
               </ListItemIcon>
-              <ListItemText primary="Pages" />
+              <ListItemText primary="Student Detail" />
             </ListItemButton>
-          </ListItem>
+          </ListItem></LinkPage>
+          <LinkPage to="/MarkAttend">
           <ListItem disablePadding>
             <ListItemButton component="a" >
               <ListItemIcon>
                <Group />
               </ListItemIcon>
-              <ListItemText primary="Groups" />
+              <ListItemText primary="Mark Attendance" />
             </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" >
-              <ListItemIcon>
-                 <Storefront />
-              </ListItemIcon>
-              <ListItemText primary="Marketplace" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" >
-              <ListItemIcon>
-                 <Person /> 
-              </ListItemIcon>
-              <ListItemText primary="Friends" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" >
-              <ListItemIcon>
-                 <Settings /> 
-              </ListItemIcon>
-              <ListItemText primary="Settings" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" >
-              <ListItemIcon>
-                 <AccountBox /> 
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-          </ListItem>
+          </ListItem></LinkPage>
+          
           <Divider/>
           <ListItem disablePadding>
             <ListItemButton component="a" >
@@ -166,25 +146,18 @@ import { color } from "@chakra-ui/react";
               <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" >
-              <ListItemIcon>
-                 <ModeNight /> 
-              </ListItemIcon>
-              <Switch onChange={e=>setMode(mode === "light" ? "dark" : "light")}/>
-            </ListItemButton>
-          </ListItem>
+         
         </List></Box>
             </Drawer>
 
         <Box sx={{justifyContent:{xs:'center',sm: "left",lg:'left'},
     alignItems:{xs:"center"}
     }}>
-        <Pets sx={{ display: { xs: "none", sm: "block",lg:'block' } }} /> 
+        <EscalatorWarningIcon sx={{ display: { xs: "none", sm: "block",lg:'block' } }} /> 
           <Typography  variant="h6"
            sx={{ 
            display: { xs: "" } }}>
-            LAMA DEV
+            S M I T
           </Typography>
         </Box>
           {/* <Pets sx={{ display: { xs: "block", sm: "none" } }} /> */}
@@ -197,11 +170,11 @@ import { color } from "@chakra-ui/react";
           {/* // value={value} onChange={handleChange} 
           centered */}
           
-<LinkPage to="/"><TabPage label="Home" /></LinkPage>
+
  
 
  
- <LinkPage  to="/ClassCreate" ><TabPage label="classes" /></LinkPage>
+ <LinkPage  to="/" ><TabPage label="Dashboard" /></LinkPage>
  <LinkPage  to="/StudentDetail" ><TabPage label="StudentDetail" /></LinkPage>
  <LinkPage  to="/MarkAttend" ><TabPage label="MarkAttendnace" /></LinkPage>
 {/* <TabPage component="a" to="/" label="Home"><Link  to="/">Home</Link></TabPage>
@@ -212,13 +185,13 @@ import { color } from "@chakra-ui/react";
 
 
     </Box>
-          
+    
           <Icons>
             
-            
+          <LogoutIcon onClick={logout}/>
             <Avatar
               sx={{ width: 30, height: 30 }}
-              src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+             
               onClick={(e) => setOpen(true)}
             />
           </Icons>
@@ -230,24 +203,7 @@ import { color } from "@chakra-ui/react";
             <Typography variant="span">John</Typography>
           </UserBox> */}
         </StyledToolbar>
-        <Menu
-          id="demo-positioned-menu"
-          aria-labelledby="demo-positioned-button"
-          open={open}
-          onClose={(e) => setOpen(false)}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          <MenuItem>Profile</MenuItem>
-          <MenuItem>My account</MenuItem>
-          <MenuItem>Logout</MenuItem>
-        </Menu>
+          
       </AppBar>
     );
   };

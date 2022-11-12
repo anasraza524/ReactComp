@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { Link } from "react-router-dom";
 import { useState,useEffect } from 'react';
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import { initializeApp } from "firebase/app";
 import { getFirestore,where } from "firebase/firestore";
  import { getAuth } from "firebase/auth";
@@ -142,7 +142,11 @@ console.log(              classTimimg ,
     }
   return (
     <div > 
-  <Button variant="outlined" onClick={handleClickOpen}>
+  <Button sx={{margin:{xs:'5px',lg:"20px"},
+  width:"400px",height:'50px'
+  ,marginTop:"25px",
+marginLeft:{xs:'5%',lg:"5%"}
+}} variant="outlined" onClick={handleClickOpen}>
   Create Class
       </Button>
 
@@ -226,16 +230,16 @@ onChange={(e) => {
       spacing={2}
       sx={{ maxWidth: 400,borderRadius:"20px", }}
       >  
-       <Button onClick={() => {
+      
+  <Card sx={{ maxWidth: 400, }}>
+  <Button style={{float:'right',color:'grey'}} onClick={() => {
 
 deletePost(eachPost?.id)
 
-}}>Delete</Button>
-  <Card sx={{ maxWidth: 400, }}>
- 
+}}><DeleteIcon/></Button>
     <CardContent>
       <Typography gutterBottom variant="h4" component="div">
-<span>{eachPost.teacherName}</span> <br />
+      <u><span>{eachPost.teacherName}</span></u> <br />
 
       </Typography>
       <Typography variant="h6" >
@@ -247,7 +251,7 @@ deletePost(eachPost?.id)
       </Typography>
     </CardContent>
     <CardActions>
-     <Link to="StudentDetail"><Button size="small">Edit Student Detail</Button></Link> 
+     <Link to="/StudentDetail"><Button size="small">Edit Student Detail</Button></Link> 
      
     </CardActions>
   </Card> 

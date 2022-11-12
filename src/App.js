@@ -49,7 +49,7 @@ function App() {
   return (
     <div>
        <ThemeProvider theme={darkTheme}>
-      <Navbar2 setMode={setMode} mode={mode}/>
+      <Navbar2  setMode={setMode} mode={mode}/>
     
     
     
@@ -61,10 +61,9 @@ function App() {
 
 <Routes>
      
-<Route path="/" element={<Home/>} />
-<Route path="About" element={<About/>} />
+
 <Route path="StudentDetail" element={<StudentDetail/>} />
-<Route path="ClassCreate" element={<ClassCreate/>} />
+<Route path="/" element={<ClassCreate/>} />
 <Route path="MarkAttend" element={<MarkAttend/>} />  
 <Route path="*" element={<Navigate to="/" replace={true} />} />
 </Routes>
