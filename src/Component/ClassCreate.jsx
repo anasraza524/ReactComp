@@ -134,6 +134,12 @@ console.log(              classTimimg ,
       
   
     }
+    const deletePost = async (postId) => {
+      handleClose()
+      await deleteDoc(doc(db, "CreatedClass", postId));
+  
+                    // console.log('postId', postId)
+    }
   return (
     <div > 
   <Button variant="outlined" onClick={handleClickOpen}>
@@ -212,13 +218,15 @@ onChange={(e) => {
 
           
       <Stack 
+      
+      flex={2}
       m={10}
       key={i}
       divider={<Divider orientation="vertical" flexItem />}
       spacing={2}
-      sx={{ maxWidth: 400,borderRadius:"20px" }}
+      sx={{ maxWidth: 400,borderRadius:"20px", }}
       >  
-  <Card sx={{ maxWidth: 800, }}>
+  <Card sx={{ maxWidth: 400, }}>
     
     <CardContent>
       <Typography gutterBottom variant="h4" component="div">
