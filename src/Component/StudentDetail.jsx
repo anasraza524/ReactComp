@@ -133,11 +133,11 @@ const StudentDetail = () => {
       <Box sx={{ width: '100%' }}>
       <Stack spacing={3}>
         <Item>
-         <span style={{paddingRight:'10px'}}>anas Raza</span>
-         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span>
-         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span> 
-         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span> 
-         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span>
+        <span style={{paddingRight:'20px'
+        ,fontSize:"20px",fontWeight:'400'
+         }}>Web & Mobile
+         </span>  
+         
         
         
         </Item>

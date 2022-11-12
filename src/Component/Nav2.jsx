@@ -84,11 +84,7 @@ import { color } from "@chakra-ui/react";
         // setIsOpen((prevState) => !prevState)
         setIsOpen(true)
     }
-    const [value, setValue] = useState(2);
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
     return (
       <AppBar position="sticky">
 
@@ -196,21 +192,25 @@ import { color } from "@chakra-ui/react";
             <InputBase placeholder="search..." />
           </Search> */}
           <Box sx={{ fontWeight:'20px', display:{xs:'none',lg:'block',sm:"block"} }}>
-          <Tabs
+         
           
-          value={value} onChange={handleChange} centered>
+          {/* // value={value} onChange={handleChange} 
+          centered */}
+          
 <LinkPage to="/"><TabPage label="Home" /></LinkPage>
  
- <LinkPage  to="/About" ><TabPage label="About" /></LinkPage>
+
+ 
  <LinkPage  to="/ClassCreate" ><TabPage label="classes" /></LinkPage>
- <LinkPage  to="/StudentDetail" ><TabPage label="Student" /></LinkPage>
+ <LinkPage  to="/StudentDetail" ><TabPage label="StudentDetail" /></LinkPage>
+ <LinkPage  to="/MarkAttend" ><TabPage label="MarkAttendnace" /></LinkPage>
 {/* <TabPage component="a" to="/" label="Home"><Link  to="/">Home</Link></TabPage>
 <TabPage component="a" to="About" label="About"><Link to="About">About</Link></TabPage> */}
 
 
 
 
-</Tabs>
+
     </Box>
           
           <Icons>
