@@ -7,6 +7,7 @@ import { Routes, Route, Link ,Navigate} from "react-router-dom";
 import Navbar2 from './Component/Nav2';
 import StickyFooter from './Component/Footer';
 import { useState } from 'react';
+import ClassCreate from './Component/ClassCreate';
 function App() {
   const [mode, setMode] = useState("dark");
 
@@ -25,7 +26,8 @@ function App() {
       <Route path="About" element={<About/>} /> 
       <Route path="*" element={<Navigate to="/" replace={true} />} />
     </Routes>
-    <StickyFooter/>
+    {/* <StickyFooter/> */}
+    <ClassCreate/>
     </ThemeProvider>
     </div>
   );
