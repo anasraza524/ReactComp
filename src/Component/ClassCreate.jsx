@@ -226,8 +226,13 @@ onChange={(e) => {
       spacing={2}
       sx={{ maxWidth: 400,borderRadius:"20px", }}
       >  
+       <button onClick={() => {
+
+deletePost(eachPost?.id)
+
+}}>Delete</button>
   <Card sx={{ maxWidth: 400, }}>
-    
+ 
     <CardContent>
       <Typography gutterBottom variant="h4" component="div">
 <span>{eachPost.teacherName}</span> <br />
