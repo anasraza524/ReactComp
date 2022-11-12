@@ -14,3 +14,8 @@ code {
 .link {
   color: #FFF;
 }
+span{
+  padding: 5px;
+  margin: 5px;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

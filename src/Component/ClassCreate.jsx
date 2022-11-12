@@ -216,17 +216,21 @@ onChange={(e) => {
       key={i}
       divider={<Divider orientation="vertical" flexItem />}
       spacing={2}
-      sx={{ maxWidth: 1000 }}
+      sx={{ maxWidth: 400,borderRadius:"20px" }}
       >  
   <Card sx={{ maxWidth: 800, }}>
     
     <CardContent>
-      <Typography gutterBottom variant="h5" component="div">
-<span>{eachPost.teacherName}</span> <span>({eachPost.classTimimg})</span>
+      <Typography gutterBottom variant="h4" component="div">
+<span>{eachPost.teacherName}</span> <br />
+
       </Typography>
-      <Typography variant="body2" color="text.secondary">
-        <span>{eachPost.sectionName}</span><span>{eachPost.schduleOfClass}</span><br /><br />
-        <span>{eachPost.courseName}</span><span>{eachPost.batchNumber}</span><br />
+      <Typography variant="h6" >
+      Class Timimg:<span>{eachPost.classTimimg}</span><br />
+      Section Name:  <span>{eachPost.sectionName}</span><br />
+      Schdule Of Class:<span>{eachPost.schduleOfClass}</span><br />
+      Course Name: <span> {eachPost.courseName}</span><br />
+      BatchNumber: <span> {eachPost.batchNumber}</span><br />
       </Typography>
     </CardContent>
     <CardActions>
