@@ -2,7 +2,19 @@ import React from 'react'
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import { Link } from "react-router-dom";
 import { useState,useEffect } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
 
+import { initializeApp } from "firebase/app";
+import { getFirestore,where } from "firebase/firestore";
+ import { getAuth } from "firebase/auth";
+import {
+  query, collection,
+  addDoc, getDocs, doc, onSnapshot
+  , serverTimestamp, orderBy, limit
+  , deleteDoc, updateDoc
+} from "firebase/firestore";
+import moment from 'moment';
+import axios from 'axios';
 import {
     Button, Divider,
         TextareaAutosize, TextField,
@@ -50,10 +62,104 @@ const StudentDetail = () => {
           setImageUrl(URL.createObjectURL(selectedImage));
         }
       }, [selectedImage]);
+   
+      const [fullName, setfullName] = useState("")
+      const [fatherName, setsfatherName] = useState("")
+      const [rollNo, setrollNo] = useState("")
+      const [ContactNo, setContactNo] = useState("")
+      const [CNICNo, setCNICNo] = useState("")
+      const [CourseName, setCourseName] = useState("")
+      const [StudentDetail, setStudentDetail] = useState([])  
+      const db = getFirestore();
+    const auth = getAuth();
+    useEffect(() => {
+  
+     
+      
+  // unsubsribe close the data when user leave  the page
+      let unsubscribe = null;
+     
+  
+  // real time function get data from firebse/firestore Post array on page load
+      const getRealTimeData = async () => {
+       
+        const q = query(collection(db, "StudentDetail"),
+        where("user", "==", auth.currentUser.email)
+        );
+        unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const StudentDetail = [];
+          querySnapshot.forEach((doc) => {
+            let data = doc.data()
+            data.id = doc.id
+            StudentDetail.push(data)
+            // Posts.push({...doc.data(),id: doc.id });
+            // Posts.push(doc.data());
+          });
+          console.log("StudentDetail: ", StudentDetail);
+          setStudentDetail(StudentDetail)
+        });
+      }
+      getRealTimeData()
+  
+  
+      // unsubscribe clean up function
+      return () => {
+        console.log("Clean up funtion ");
+        unsubscribe()
+      }
+  
+    }, [])
+
+
+
+
+    const savePost = async () => {
+
+      // console.log("postText", postText);
+    
+      handleClose()
+  
+      // set data to cloudnary (storage bucket only for image) 
+    
+  
+    
+  
+        
+  // set text , date to firebase/firestore but set image from cloudnary to firebase/firestore
+          try {
+            const docRef = await addDoc(collection(db, "StudentDetail"), {
+              fullName:fullName ,
+              fatherName: fatherName ,
+              rollNo:rollNo ,
+              ContactNo:ContactNo ,
+              CNICNo:CNICNo,
+              CourseName: CourseName,
+              user: auth.currentUser.email,
+            });
+            console.log("Document written with ID: ", docRef.id);
+          } catch (e) {
+            console.error("Error adding document: ", e);
+           
+          }
  
+      console.log('file', file)
+  
+      
+  
+    }
+    const deletePost = async (postId) => {
+      handleClose()
+      await deleteDoc(doc(db, "StudentDetail", postId));
+  
+                    // console.log('postId', postId)
+    }
   return (
     <div>
-<Button variant="outlined" onClick={handleClickOpen}>
+<Button sx={{margin:{xs:'5px',lg:"20px"},
+  width:{xs:"100",lg:"400px"},height:'50px'
+  ,marginTop:"25px",
+marginLeft:{xs:'30%',lg:"30%"}
+}} variant="outlined" onClick={handleClickOpen}>
   Add Student
       </Button>
 <Dialog
@@ -67,7 +173,7 @@ const StudentDetail = () => {
         </DialogTitle>
         <DialogContent>
         <Box
-      component="form"
+      
       sx={{
        
        
@@ -87,12 +193,35 @@ const StudentDetail = () => {
                   src={imageUrl} alt={selectedImage.name} height="150px" width="150" />
                 </Box>
               )}
-      <TextField type='text' id="filled-basic" label=" Full Name" variant="filled" />
-      <TextField type='text' id="filled-basic" label="Father Name" variant="filled" /><br />
-      <TextField type='Number' id="filled-basic" label="Roll Number" variant="filled" />
-      <TextField type='Number' id="filled-basic" label="Contact Number" variant="filled" /><br />
-      <TextField type='Number' id="filled-basic" label="CNIC Number" variant="filled" />
-      <TextField type='text' id="filled-basic" label="Course Name" variant="filled" /><br />
+      <TextField 
+       onChange={(e) => {
+        setfullName(e.target.value)
+      }}
+      type='text' id="filled-basic" label=" Full Name" variant="filled" />
+      <TextField 
+       onChange={(e) => {
+        setsfatherName(e.target.value)
+      }}
+      type='text' id="filled-basic" label="Father Name" variant="filled" /><br />
+      <TextField
+       onChange={(e) => {
+        setrollNo(e.target.value)
+      }}
+       type='Number' id="filled-basic" label="Roll Number" variant="filled" />
+      <TextField
+       onChange={(e) => {
+        setContactNo(e.target.value)
+      }}
+       type='Number' id="filled-basic" label="Contact Number" variant="filled" /><br />
+      <TextField
+       onChange={(e) => {
+        setCNICNo(e.target.value)
+      }}
+       type='Number' id="filled-basic" label="CNIC Number" variant="filled" />
+      <TextField onChange={(e) => {
+        setCourseName(e.target.value)
+      }}
+       type='text' id="filled-basic" label="Course Name" variant="filled" /><br />
       
 
       <input
@@ -109,7 +238,12 @@ const StudentDetail = () => {
 
 
                   />
-                  <Div>
+
+
+
+
+                  <Div 
+                  >
                     Profile Photo
                     <label htmlFor="select-image">
 
@@ -120,7 +254,7 @@ const StudentDetail = () => {
                  <br />
 
 
-    <Button  fullWidth
+    <Button  onClick={savePost}
       variant='contained' type="submit">Submit</Button>
     </Box>
         </DialogContent>
@@ -129,22 +263,55 @@ const StudentDetail = () => {
         </DialogActions>
       </Dialog>
 
-
-      <Box sx={{ width: '100%' }}>
+      {
+       StudentDetail.map((eachPost, i) => (
+      <Box
+      key={i} sx={{ width: '100%' }}>
       <Stack spacing={3}>
-        <Item>
+
+        <Item sx={{m:'10px'}}>
         <span style={{paddingRight:'20px'
         ,fontSize:"20px",fontWeight:'400'
-         }}>Web & Mobile
-         </span>  
+         }}>Course Name: {eachPost.CourseName}
+         </span>
+         <span style={{paddingRight:'20px'
+        ,fontSize:"20px",fontWeight:'400'
+         }}>Roll No: {eachPost.rollNo}
+         </span> 
+         <span style={{paddingRight:'20px'
+        ,fontSize:"20px",fontWeight:'400'
+         }}>Name: {eachPost.fullName}
+         </span> 
+         <span style={{paddingRight:'20px'
+        ,fontSize:"20px",fontWeight:'400'
+         }}>Father Name: {eachPost.fatherName}
+         </span> 
          
+         <span style={{paddingRight:'20px'
+        ,fontSize:"20px",fontWeight:'400'
+         }}>CNIC No: {eachPost.CNICNo}
+         </span>
+         <span style={{paddingRight:'20px'
+        ,fontSize:"20px",fontWeight:'400'
+         }}>Contact No: {eachPost.ContactNo}
+         </span>
+       
+            
         
+
+         
+         <Button style={{float:'right',color:'black'}} onClick={() => {
+
+deletePost(eachPost?.id)
+
+}}><DeleteIcon/></Button>
         
         </Item>
-      
+        
+         
       </Stack>
     </Box>
-
+))}
     </div>
   )
 }
