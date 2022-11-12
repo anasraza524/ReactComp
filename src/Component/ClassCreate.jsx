@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-
+import { Link } from "react-router-dom";
 
 
 
@@ -83,23 +83,32 @@ const ClassCreate = () => {
         </DialogActions>
       </Dialog>
   
-
-      <Card sx={{ maxWidth: 345 }}>
+      <Stack 
+      m={10}
+     
+      divider={<Divider orientation="vertical" flexItem />}
+      spacing={2}
+      sx={{ maxWidth: 1000 }}
+      >  
+  <Card sx={{ maxWidth: 800, }}>
     
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Edit Student Detail</Button>
-       
-      </CardActions>
-    </Card>
+    <CardContent>
+      <Typography gutterBottom variant="h5" component="div">
+<span>Sir Inzimam Malik</span> <span>(9 to 11)</span>
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        Lizards are a widespread group of squamate reptiles, with over 6,000
+        species, ranging across all continents except Antarctica
+      </Typography>
+    </CardContent>
+    <CardActions>
+     <Link to="StudentDetail"><Button size="small">Edit Student Detail</Button></Link> 
+     
+    </CardActions>
+  </Card> 
+
+</Stack>
+    
   </div>
   )
 }
