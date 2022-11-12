@@ -13,13 +13,9 @@ import {
        , Typography, IconButton, Box, Avatar
        }
   from "@mui/material"
+import { display } from '@mui/system';
 
-  const Span = styled(span)({
-    fontWeight:'bold',
-    fontSize:'16px',
-   
-    
-   });
+
   const Div = styled('div')(({ theme }) => ({
     ...theme.typography.button,
     backgroundColor: theme.palette.background.paper,
@@ -137,8 +133,13 @@ const StudentDetail = () => {
       <Box sx={{ width: '100%' }}>
       <Stack spacing={3}>
         <Item>
-         <span>anasd</span>
-         <span>anasd</span>
+         <span style={{paddingRight:'10px'}}>anas Raza</span>
+         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span>
+         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span> 
+         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span> 
+         <span style={{paddingRight:'10px'}}>Muhammad Aslam</span>
+        
+        
         </Item>
       
       </Stack>
