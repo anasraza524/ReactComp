@@ -69,6 +69,8 @@ const StudentDetail = () => {
       const [ContactNo, setContactNo] = useState("")
       const [CNICNo, setCNICNo] = useState("")
       const [CourseName, setCourseName] = useState("")
+      const [gender, setGender] = useState("")
+      const [qualification, setQualification] = useState("")
       const [StudentDetail, setStudentDetail] = useState([])  
       const db = getFirestore();
     const auth = getAuth();
@@ -134,6 +136,8 @@ const StudentDetail = () => {
               ContactNo:ContactNo ,
               CNICNo:CNICNo,
               CourseName: CourseName,
+              gender:gender,
+              qualification:qualification,
               user: auth.currentUser.email,
             });
             console.log("Document written with ID: ", docRef.id);
@@ -222,8 +226,14 @@ marginLeft:{xs:'30%',lg:"30%"}
         setCourseName(e.target.value)
       }}
        type='text' id="filled-basic" label="Course Name" variant="filled" /><br />
-      
-
+      <TextField onChange={(e) => {
+        setGender(e.target.value)
+      }}
+       type='text' id="filled-basic" label="Gender" variant="filled" />
+<TextField onChange={(e) => {
+        setQualification(e.target.value)
+      }}
+       type='text' id="filled-basic" label="Qualification" variant="filled" /><br />
       <input
                     id='select-image'
                     type="file"
