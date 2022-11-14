@@ -28,7 +28,7 @@ const MarkAttend = () => {
   let UserId ;
   const [Document, setDocument] = useState({});
 const [curentRollNo, setcurentRollNo] = useState('')
-
+const [isSearch, setisSearch] = useState(false)
 
 const db = getFirestore();
 const auth = getAuth();
@@ -47,7 +47,7 @@ const SearchStudentData = async (e) => {
     let data = JSON.stringify(doc.data())
     setDocument(JSON.parse(data));
   });
-
+  setisSearch(true)
 };
       
     // unsubsribe close the data when user leave  the page
@@ -64,13 +64,13 @@ const SearchStudentData = async (e) => {
         //   unsubscribe()
         // }
     
-        
+       
   return (
     <div>
 <Container sx={{maxwidth:{xs:"xs",sm:"sm",lg:"lg"}}}>
         
         {/* IF CONDITION */}
-        
+     
         <Box sx={{ bgcolor: '#cfe8fc', height: {xs:'150hv',lg:'80vh'},p:"20px" }} >
       
 
@@ -105,7 +105,9 @@ style={{float:"right"}}
       
     </Box>
     
-
+    {
+        (isSearch === true)
+        ?
        <Box
         mt={2}
        
@@ -126,8 +128,8 @@ style={{float:"right"}}
                 <br />
 
                 <div>
-                <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>NAME: </strong>Anas raza</Div>
-                <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>Roll No: </strong>KHI04200000</Div>    
+                <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>NAME: </strong>{Document.fullName}</Div>
+                <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>Roll No: </strong>{Document.rollNo}</Div>    
                 </div></Box>
       
       {/* <TextField  style={{margin:'3px'}}  id="filled-read-only-input"   defaultValue="Hello World"
@@ -171,14 +173,15 @@ style={{float:"right"}}
           variant="filled" label="Course Name"  />*/}
           <br />
          <Box sx={{display:{xs:'block',lg:'flex'}}}>
-         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>FATHER NAME: </strong>KHI04200000</Div>
-         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>CNIC: </strong>KHI04200000</Div>
-         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>CONTACT: </strong>KHI04200000</Div>
+         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>FATHER NAME: </strong>{Document.fatherName}</Div>
+         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>CNIC: </strong>{Document.CNICNo}</Div>
+         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>CONTACT: </strong>{Document.ContactNo}</Div>
           </Box>  
           <Box sx={{display:{xs:'block',lg:'flex'}}}>
-         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>COURSE: </strong>KHI04200000</Div>
-         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>GENDER: </strong>KHI04200000</Div>
-         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>EDUCATION: </strong>KHI04200000</Div>
+         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>COURSE: </strong>{Document.CourseNam}</Div>
+         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>GENDER: </strong>{Document.gender}</Div>
+         <Div sx={{p:{xs:'10px',lg:'20px'}}}><strong>EDUCATION: </strong>{Document.qualification
+}</Div>
           </Box>        
               
       <Box sx={{m:'20px',alignItems:"center"}}>
@@ -216,8 +219,10 @@ style={{float:"right"}}
     <Button  
     
       variant='contained' type="submit">Submit</Button>
+    </Box> :
+    ""}
     </Box>
-    </Box>
+   
     </Container>
     </div>
   )
