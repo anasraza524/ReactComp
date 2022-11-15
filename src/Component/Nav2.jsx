@@ -177,6 +177,7 @@ import { color } from "@chakra-ui/react";
  <LinkPage  to="/" ><TabPage label="Dashboard" /></LinkPage>
  <LinkPage  to="/StudentDetail" ><TabPage label="StudentDetail" /></LinkPage>
  <LinkPage  to="/MarkAttend" ><TabPage label="MarkAttendnace" /></LinkPage>
+ <LinkPage  to="/History" ><TabPage label="History" /></LinkPage>
 {/* <TabPage component="a" to="/" label="Home"><Link  to="/">Home</Link></TabPage>
 <TabPage component="a" to="About" label="About"><Link to="About">About</Link></TabPage> */}
 

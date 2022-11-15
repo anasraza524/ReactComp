@@ -48,6 +48,7 @@ const SearchStudentData = async (e) => {
     setDocument(JSON.parse(data));
   });
   setisSearch(true)
+  console.log('Document',Document)
 };
       
     // unsubsribe close the data when user leave  the page
@@ -106,7 +107,8 @@ style={{float:"right"}}
     </Box>
     
     {
-        (isSearch === true)
+        (isSearch === true )
+        // &&(Document.length !== 0)
         ?
        <Box
         mt={2}

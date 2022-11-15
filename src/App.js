@@ -13,6 +13,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ClassCreate from './Component/ClassCreate';
 import StudentDetail from './Component/StudentDetail';
 import MarkAttend from './Component/MarkAttend';
+import History from './Component/History';
 function App() {
   const [mode, setMode] = useState("dark");
 
@@ -64,7 +65,8 @@ function App() {
 
 <Route path="StudentDetail" element={<StudentDetail/>} />
 <Route path="/" element={<ClassCreate/>} />
-<Route path="MarkAttend" element={<MarkAttend/>} />  
+<Route path="MarkAttend" element={<MarkAttend/>} />
+<Route path="History" element={<History/>} />  
 <Route path="*" element={<Navigate to="/" replace={true} />} />
 </Routes>
 
