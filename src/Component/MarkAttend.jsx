@@ -117,7 +117,7 @@ style={{float:"right"}}
                 >
                   <Box sx={{display:{xs:'block',lg:'flex'},alignItems:'center'}}>
 <Avatar
-
+loading="lazy"
         alt="image not uploaded"
         src={Document.image}
         sx={{ width: {xs:150,lg:250}, height: {xs:150,lg:250},border:'solid' }}
