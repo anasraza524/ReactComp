@@ -29,7 +29,7 @@ const MarkAttend = () => {
   const [Document, setDocument] = useState({});
 const [curentRollNo, setcurentRollNo] = useState('')
 const [isSearch, setisSearch] = useState(false)
-
+const [AttendeceValue, setAttendeceValue] = useState('');
 const db = getFirestore();
 const auth = getAuth();
 
@@ -49,22 +49,21 @@ const SearchStudentData = async (e) => {
   });
   setisSearch(true)
   console.log('Document',Document)
+  console.log('UserId',UserId)
+  
 };
-      
-    // unsubsribe close the data when user leave  the page
-        // let unsubscribe = null;
-       
-    
-    // real time function get data from firebse/firestore Post array on page load
-        
-    
-    
-        // unsubscribe clean up function
-        // return () => {
-        //   console.log("Clean up funtion ");
-        //   unsubscribe()
-        // }
-    
+const CheckAttendence = async(e)=>{
+  e.preventDefault();
+ try {
+  const docRef = await addDoc(collection(db, "StudentDetail"), {
+    ...Document,studentHistory:{
+      status:AttendeceValue,time:serverTimestamp()
+    },});
+ 
+} catch (e) {
+ 
+}
+};
        
   return (
     <div>
@@ -118,8 +117,9 @@ style={{float:"right"}}
                 >
                   <Box sx={{display:{xs:'block',lg:'flex'},alignItems:'center'}}>
 <Avatar
-        alt="Remy Sharp"
-        src="https://static.remove.bg/remove-bg-web/221525818b4ba04e9088d39cdcbd0c7bcdfb052e/assets/start_remove-c851bdf8d3127a24e2d137a55b1b427378cd17385b01aec6e59d5d4b5f39d2ec.png"
+
+        alt="image not uploaded"
+        src={Document.image}
         sx={{ width: {xs:150,lg:250}, height: {xs:150,lg:250},border:'solid' }}
       />
                   {/* <img
@@ -187,7 +187,7 @@ style={{float:"right"}}
           </Box>        
               
       <Box sx={{m:'20px',alignItems:"center"}}>
-      <Button sx={{m:'10px',}} variant="outlined" size="small">
+      <Button  onClick={CheckAttendence} sx={{m:'10px',}} variant="outlined" size="small">
           Present
         </Button>
         <Button sx={{m:'10px',}} variant="outlined" size="small">
@@ -196,6 +196,14 @@ style={{float:"right"}}
           Leave</Button>
         <Button sx={{m:'10px',}} variant="outlined" size="small">
           Late</Button>
+          <select name="" id="teachr" onChange={(e)=>{
+         setAttendeceValue(e.target.value)
+        }}>
+          <option value="Present">Present</option>
+          <option value="Leave">Leave</option>
+          <option value="Late">Late</option>
+          <option value="Absent">Absent</option>
+        </select>
       </Box>
       {/* <Box sx={{ minWidth: 200 }}>
       <FormControl  >

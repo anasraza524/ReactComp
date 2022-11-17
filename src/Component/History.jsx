@@ -24,23 +24,26 @@ const History = () => {
   
   const db = getFirestore();
   const auth = getAuth();
-    const SearchHistoryData = async (e) => {
   
-        e.preventDefault();
-        const q = query(collection(db, "StudentDetail"),
-       
-        where("rollNo", "==", curentRollNo)
-        );
-        
-        const querySnapshot =await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          UserId = doc.id;
-          let data = JSON.stringify(doc.data())
-          setDocument(JSON.parse(data));
-        });
-        setisSearch(true)
-        console.log('Document',Document)
-      };
+  const SearchStudentData = async (e) => {
+    
+    e.preventDefault();
+    const q = query(collection(db, "StudentDetail"),
+   
+    where("rollNo", "==", curentRollNo)
+    );
+    
+    const querySnapshot =await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      UserId = doc.id;
+      let data = JSON.stringify(doc.data())
+      setDocument(JSON.parse(data));
+    });
+    setisSearch(true)
+    console.log('Document',Document)
+    console.log('UserId',UserId)
+    
+  };
   return (
     <div>
 
@@ -60,9 +63,9 @@ const History = () => {
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Enter Roll No"
-        // onChange={(e)=>{
-        //   setcurentRollNo(e.target.value)
-        // }}
+        onChange={(e)=>{
+           setcurentRollNo(e.target.value)
+         }}
         inputProps={{ 'aria-label': 'search google maps' }}
       />
       <IconButton  type="button" sx={{ p: '10px' }} aria-label="search">

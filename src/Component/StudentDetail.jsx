@@ -15,6 +15,9 @@ import {
 } from "firebase/firestore";
 import moment from 'moment';
 import axios from 'axios';
+import { getStorage, ref,uploadBytesResumable,
+  getDownloadURL
+} from "firebase/storage";
 import {
     Button, Divider,
         TextareaAutosize, TextField,
@@ -71,9 +74,16 @@ const StudentDetail = () => {
       const [CourseName, setCourseName] = useState("")
       const [gender, setGender] = useState("")
       const [qualification, setQualification] = useState("")
-      const [StudentDetail, setStudentDetail] = useState([])  
+      const [studentHistory, setStudentHistory] = useState({});
+      const [StudentDetail, setStudentDetail] = useState([]) 
+      const [storageURL, getStorageURL] = useState(''); 
       const db = getFirestore();
     const auth = getAuth();
+    // Get a reference to the storage service, which is used to create references in your storage bucket
+const storage = getStorage();
+
+// Create a storage reference from our storage service
+
     useEffect(() => {
   
      
@@ -101,19 +111,40 @@ const StudentDetail = () => {
           setStudentDetail(StudentDetail)
         });
       }
+     
       getRealTimeData()
-  
   
       // unsubscribe clean up function
       return () => {
         console.log("Clean up funtion ");
         unsubscribe()
       }
-  
+      
     }, [])
 
-
-
+    const [progress, setProgress] = useState(0);
+    const fileUpload= ()=>{
+      if (!file) return;
+        const sotrageRef = ref(storage, `files/${file.name}`);
+        const uploadTask = uploadBytesResumable(sotrageRef, file);
+    
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const prog = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            setProgress(prog);
+          },
+          (error) => console.log(error),
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+           console.log("File available at", downloadURL);
+              getStorageURL(downloadURL)
+            });
+          }
+        );
+    }
 
     const savePost = async () => {
 
@@ -122,10 +153,14 @@ const StudentDetail = () => {
       handleClose()
   
       // set data to cloudnary (storage bucket only for image) 
-    
+      // 
   
-    
-  
+    // Create a reference to 'mountains.jpg'
+
+
+// Create a reference to 'images/mountains.jpg'
+
+ 
         
   // set text , date to firebase/firestore but set image from cloudnary to firebase/firestore
           try {
@@ -138,6 +173,8 @@ const StudentDetail = () => {
               CourseName: CourseName,
               gender:gender,
               qualification:qualification,
+              // studentHistory:studentHistory,
+              image:storageURL,
               user: auth.currentUser.email,
             });
             console.log("Document written with ID: ", docRef.id);
@@ -146,10 +183,12 @@ const StudentDetail = () => {
            
           }
  
+
+console.log('storageURL',storageURL)
       console.log('file', file)
   
+
       
-  
     }
     const deletePost = async (postId) => {
       handleClose()
@@ -260,7 +299,13 @@ marginLeft:{xs:'30%',lg:"30%"}
 < AddPhotoAlternateIcon style={{ paddingLeft: "5px", fontSize: "25px", color: 'green' }} />
 
 </label>
-                  </Div>  
+                  </Div> 
+                  <Button onClick={fileUpload}>
+                    set image
+                    </Button> 
+                  {
+(progress === '100')?<h5>Done{progress}%</h5>:<h5>loading{progress}%</h5>
+} 
                  <br />
 
 
